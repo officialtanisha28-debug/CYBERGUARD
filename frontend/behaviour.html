@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Behaviour Analysis | CYBERGUARD</title>
+<link rel="stylesheet" href="css/behaviour.css">
+
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <a href="dashboard.html" class="brand"><div class="logo">C</div><div><h2>CYBERGUARD</h2><p>AI Cyber Defence</p></div></a>
+        <nav>
+            <p class="nav-heading">MAIN</p>
+            <a class="nav-link" href="dashboard.html"><span class="nav-icon">⌂</span>Dashboard</a>
+            <a class="nav-link" href="scanner.html"><span class="nav-icon">⌕</span>Threat Scanner</a>
+            <p class="nav-heading">DETECTION</p>
+            <a class="nav-link" href="phishing.html"><span class="nav-icon">↗</span>Phishing</a>
+            <a class="nav-link" href="deepfake.html"><span class="nav-icon">◈</span>Deepfake</a>
+            <a class="nav-link active" href="behaviour.html"><span class="nav-icon">◎</span>Behaviour</a>
+            <p class="nav-heading">SECURITY</p>
+            <a class="nav-link" href="incident.html"><span class="nav-icon">♧</span>Incidents</a>
+        </nav>
+        <div class="sidebar-bottom">
+            <div class="safety"><div style="font-size:25px">🛡️</div><strong>Stay Safe</strong><p>AI-powered protection for a safer digital world.</p></div>
+            <button class="logout" id="logoutBtn" type="button">↪ &nbsp; Logout</button>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div class="page-title"><div class="page-icon">◎</div><div><h1>Behaviour Analysis</h1><p>Review login activity patterns and security risk indicators.</p></div></div>
+            <div class="user"><div class="avatar" id="userAvatar">U</div><div><div class="user-name" id="userName">User</div><div class="user-email" id="userEmail"></div></div></div>
+        </header>
+
+        <div class="content">
+            <section class="panel">
+                <div class="hero"><div class="hero-icon">◎</div><div><h2>User Behaviour Analytics</h2><p>Submit login activity signals to CYBERGUARD Model 3B to check for suspicious behaviour. This prototype provides heuristic risk scores, not production-validated verdicts.</p></div></div>
+
+                <h3 class="section-heading">Behaviour Overview</h3>
+                <div class="metrics">
+                    <article class="metric"><div class="metric-top"><span class="metric-label">Analyses Completed</span><span class="metric-icon">▤</span></div><div class="metric-value" id="analysesMetric">0</div><p class="metric-note">Analyses completed in this page session</p></article>
+                    <article class="metric"><div class="metric-top"><span class="metric-label">Latest Risk Score</span><span class="metric-icon">◈</span></div><div class="metric-value" id="riskMetric">—</div><p class="metric-note">Score returned by Model 3B</p></article>
+                    <article class="metric"><div class="metric-top"><span class="metric-label">Alerts Returned</span><span class="metric-icon">⌁</span></div><div class="metric-value" id="alertsMetric">—</div><p class="metric-note">Alerts in the latest model response</p></article>
+                </div>
+
+                <div class="grid">
+                    <section class="card">
+                        <h3>Analyse Login Behaviour</h3>
+                        <p class="card-description">Enter simulated test signals or authorised security-event data. Never enter passwords, authentication tokens, or private user information.</p>
+                        <form id="analysisForm">
+                            <div class="field-group"><label class="field-label" for="failedLogins">Failed Login Attempts</label><input id="failedLogins" type="number" min="0" max="1000" step="1" value="0" required></div>
+                            <div class="field-group"><label class="field-label" for="successfulAfterFailures">Successful login after failures?</label><select id="successfulAfterFailures" required><option value="false">No</option><option value="true">Yes</option></select></div>
+                            <div class="field-group"><label class="field-label" for="newDevice">Login from a new device?</label><select id="newDevice" required><option value="false">No</option><option value="true">Yes</option></select></div>
+                            <div class="field-group"><label class="field-label" for="impossibleTravel">Impossible travel detected?</label><select id="impossibleTravel" required><option value="false">No</option><option value="true">Yes</option></select></div>
+                            <div class="field-group"><label class="field-label" for="loginHour">Login Hour (24-hour format)</label><input id="loginHour" type="number" min="0" max="23" step="1" value="14" required></div>
+                            <div class="field-group"><label class="field-label" for="outsideWorkingHours">Outside working hours?</label><select id="outsideWorkingHours" required><option value="false">No</option><option value="true">Yes</option></select></div>
+                            <button class="primary" id="analyseBtn" type="submit">Analyse Behaviour</button>
+                        </form>
+                    </section>
+                    <section class="card">
+                        <h3>Risk Indicators</h3><p class="card-description">These are general indicators. Actual alerts depend on the response returned by Model 3B.</p>
+                        <div class="notice"><strong>Repeated failed logins</strong><br>Multiple failures may indicate password guessing or account misuse.</div>
+                        <div class="notice" style="margin-top:12px"><strong>New device or unusual location</strong><br>Review first-seen devices and impossible-travel signals.</div>
+                        <div class="notice" style="margin-top:12px"><strong>Unusual login time</strong><br>Compare login times with the account's expected activity.</div>
+                    </section>
+                </div>
+
+                <section class="results"><h3>Analysis Results</h3><p class="results-subtitle">Model status, risk score, threat categories and alert explanations appear here after a successful API response.</p>
+                    <div class="result-area" id="resultArea" aria-live="polite"><div class="empty"><div class="empty-icon">🛡</div><h4>No Analysis Available</h4><p>Enter login activity details and select Analyse Behaviour to request a Model 3B prediction.</p></div></div>
+                </section>
+            </section>
+        </div>
+        <footer class="footer"><div><strong>CYBERGUARD</strong> &nbsp; | &nbsp; AI Cyber Defence</div><div>Detect &nbsp; • &nbsp; Analyse &nbsp; • &nbsp; Protect</div></footer>
+    </main>
+</div>
+
+<script>
+"use strict";
+
+const token = localStorage.getItem("token");
+const storedUser = localStorage.getItem("user");
+
+if (!token || !storedUser) {
+    window.location.href = "login.html";
+} else {
+    try {
+        const user = JSON.parse(storedUser);
+        if (!user || typeof user !== "object") throw new Error("Invalid user data");
+        document.getElementById("userName").textContent = user.name || "User";
+        document.getElementById("userEmail").textContent = user.email || "";
+        document.getElementById("userAvatar").textContent = (user.name || "U").trim().charAt(0).toUpperCase() || "U";
+    } catch (error) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "login.html";
+    }
+}
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+});
+
+const analysisForm = document.getElementById("analysisForm");
+const resultArea = document.getElementById("resultArea");
+const analyseBtn = document.getElementById("analyseBtn");
+let analysesCompleted = 0;
+
+function addTextElement(parent, tag, text, className) {
+    const element = document.createElement(tag);
+    element.textContent = text;
+    if (className) element.className = className;
+    parent.appendChild(element);
+    return element;
+}
+
+function showError(messageText) {
+    const box = document.createElement("div");
+    box.className = "message";
+    addTextElement(box, "strong", "Analysis could not be completed");
+    addTextElement(box, "p", messageText);
+    resultArea.replaceChildren(box);
+}
+
+analysisForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!token) {
+        showError("Your login session was not found. Please log in again.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    const failedLogins = Number(document.getElementById("failedLogins").value);
+    const loginHour = Number(document.getElementById("loginHour").value);
+    if (!Number.isInteger(failedLogins) || failedLogins < 0 || failedLogins > 1000) {
+        showError("Failed login attempts must be a whole number between 0 and 1000.");
+        return;
+    }
+    if (!Number.isInteger(loginHour) || loginHour < 0 || loginHour > 23) {
+        showError("Login hour must be a whole number between 0 and 23.");
+        return;
+    }
+
+    const activity = {
+        event_type: "abnormal_login",
+        failed_logins: failedLogins,
+        successful_login_after_failures: document.getElementById("successfulAfterFailures").value === "true",
+        new_device: document.getElementById("newDevice").value === "true",
+        impossible_travel: document.getElementById("impossibleTravel").value === "true",
+        login_hour: loginHour,
+        outside_working_hours: document.getElementById("outsideWorkingHours").value === "true"
+    };
+
+    analyseBtn.disabled = true;
+    analyseBtn.textContent = "Analysing...";
+    resultArea.textContent = "Sending login activity to CYBERGUARD Model 3B...";
+
+    try {
+        const response = await fetch("http://127.0.0.1:5000/api/ai/model3b/predict", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + token
+            },
+            body: JSON.stringify(activity)
+        });
+
+        let data;
+        try {
+            data = await response.json();
+        } catch {
+            throw new Error("The backend returned an unreadable response. Check that the backend is running.");
+        }
+
+        if (response.status === 401 || response.status === 403) {
+            throw new Error("Your session may have expired. Please log in again.");
+        }
+        if (!response.ok || !data.success) {
+            throw new Error(data.message || "Prediction request failed (HTTP " + response.status + ").");
+        }
+
+        const result = data.result;
+        if (!result || typeof result !== "object") throw new Error("The AI service returned an invalid result.");
+
+        analysesCompleted += 1;
+        document.getElementById("analysesMetric").textContent = String(analysesCompleted);
+        document.getElementById("riskMetric").textContent = result.risk_score ?? "—";
+        document.getElementById("alertsMetric").textContent = Array.isArray(result.alerts) ? String(result.alerts.length) : "0";
+
+        const output = document.createElement("div");
+        output.className = "message";
+        addTextElement(output, "h3", "Behaviour Analysis Result");
+        addTextElement(output, "p", "Model: " + (result.model || "CYBERGUARD Model 3B"));
+
+        const statusLine = document.createElement("p");
+        statusLine.style.marginTop = "10px";
+        statusLine.appendChild(document.createTextNode("Status: "));
+        const status = String(result.status || "unknown");
+        addTextElement(statusLine, "span", status, "result-status " + status.toLowerCase().replace(/[^a-z0-9_-]/g, ""));
+        output.appendChild(statusLine);
+
+        addTextElement(output, "p", "Risk Score: " + (result.risk_score ?? "Not provided"));
+        addTextElement(output, "p", "Primary Threat: " + (result.primary_category || "None identified"));
+
+        if (result.category_scores && typeof result.category_scores === "object") {
+            addTextElement(output, "h4", "Category Scores");
+            const categoryList = document.createElement("ul");
+            categoryList.className = "result-list";
+            Object.entries(result.category_scores).forEach(([category, score]) => {
+                addTextElement(categoryList, "li", category.replace(/_/g, " ") + ": " + score);
+            });
+            output.appendChild(categoryList);
+        }
+
+        addTextElement(output, "h4", "Security Alerts");
+        if (Array.isArray(result.alerts) && result.alerts.length > 0) {
+            const alertList = document.createElement("ul");
+            alertList.className = "result-list";
+            result.alerts.forEach((alert) => {
+                const reasons = Array.isArray(alert.reasons) ? alert.reasons.join("; ") : "No reasons provided";
+                addTextElement(alertList, "li", (alert.category || "Threat").replace(/_/g, " ") +
+                    " — Risk: " + (alert.risk_score ?? "N/A") + ". Reasons: " + reasons);
+            });
+            output.appendChild(alertList);
+        } else {
+            addTextElement(output, "p", "No alerts were returned for this activity.");
+        }
+
+        if (Array.isArray(result.explanation) && result.explanation.length > 0) {
+            addTextElement(output, "h4", "Explanation");
+            addTextElement(output, "p", result.explanation.join("; "));
+        }
+        if (result.disclaimer) addTextElement(output, "p", "Note: " + result.disclaimer);
+        resultArea.replaceChildren(output);
+    } catch (error) {
+        showError(error.message || "An unexpected error occurred.");
+    } finally {
+        analyseBtn.disabled = false;
+        analyseBtn.textContent = "Analyse Behaviour";
+    }
+});
+</script>
+</body>
+</html>

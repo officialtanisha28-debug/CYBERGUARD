@@ -1,0 +1,283 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Phishing Detection | CYBERGUARD</title>
+
+
+
+    <link rel="stylesheet" href="css/phishing.css">
+
+</head>
+
+
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar">
+
+        <a href="dashboard.html" class="brand">
+
+            <div class="logo">C</div>
+
+            <div><h2>CYBERGUARD</h2><p>AI Cyber Defence</p></div>
+
+        </a>
+
+
+
+        <nav>
+
+            <p class="nav-heading">MAIN</p>
+
+            <a class="nav-link" href="dashboard.html"><span class="nav-icon">⌂</span>Dashboard</a>
+
+            <a class="nav-link" href="scanner.html"><span class="nav-icon">⌕</span>Threat Scanner</a>
+
+
+
+            <p class="nav-heading">DETECTION</p>
+
+            <a class="nav-link active" href="phishing.html"><span class="nav-icon">↗</span>Phishing</a>
+
+            <a class="nav-link" href="deepfake.html"><span class="nav-icon">◈</span>Deepfake</a>
+
+            <a class="nav-link" href="behaviour.html"><span class="nav-icon">◎</span>Behaviour</a>
+
+
+
+            <p class="nav-heading">SECURITY</p>
+
+            <a class="nav-link" href="incident.html"><span class="nav-icon">♧</span>Incidents</a>
+
+        </nav>
+
+
+
+        <div class="sidebar-bottom">
+
+            <div class="safety">
+
+                <div style="font-size:25px">🛡️</div>
+
+                <strong>Stay Safe</strong>
+
+                <p>AI-powered protection for a safer digital world.</p>
+
+            </div>
+
+            <button class="logout" id="logoutBtn">↪ &nbsp; Logout</button>
+
+        </div>
+
+    </aside>
+
+
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div class="page-title">
+
+                <div class="page-icon">↗</div>
+
+                <div>
+
+                    <h1>Phishing Detection</h1>
+
+                    <p>Review suspicious URLs and messages.</p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="user">
+
+                <div class="avatar" id="userAvatar">U</div>
+
+                <div>
+
+                    <div class="user-name" id="userName">User</div>
+
+                    <div class="user-email" id="userEmail"></div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <div class="content">
+
+            <section class="panel">
+
+                <div class="hero">
+
+                    <div class="hero-icon">🛡</div>
+
+                    <div>
+
+                        <h2>Phishing Threat Analysis</h2>
+
+                        <p>Prepare suspicious links or message text for analysis. Never enter passwords, one-time codes, or other confidential information.</p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="grid">
+
+                    <section class="card">
+
+                        <div class="card-title">
+
+                            <div class="card-icon">🔗</div>
+
+                            <div>
+
+                                <h3>Check a Suspicious URL</h3>
+
+                                <p>Enter the complete website address you want to check.</p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <form id="urlForm">
+
+                            <label class="field-label" for="urlInput">Website URL</label>
+
+                            <input id="urlInput" type="url" placeholder="https://example.com" required>
+
+                            <p class="field-help">Include https:// or http:// at the beginning.</p>
+
+                            <button class="primary" type="submit" id="urlBtn">Analyse URL</button>
+
+                        </form>
+
+                    </section>
+
+
+
+                    <section class="card">
+
+                        <div class="card-title">
+
+                            <div class="card-icon">✉</div>
+
+                            <div>
+
+                                <h3>Check Message Text</h3>
+
+                                <p>Paste suspicious message content without sensitive personal data.</p>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <form id="messageForm">
+
+                            <label class="field-label" for="messageInput">Message content</label>
+
+                            <textarea id="messageInput" placeholder="Paste suspicious email or message text here..." required maxlength="10000"></textarea>
+
+                            <p class="field-help">Maximum 10,000 characters. Do not include passwords or verification codes.</p>
+
+                            <button class="primary" type="submit" id="messageBtn">Analyse Message</button>
+
+                        </form>
+
+                    </section>
+
+                </div>
+
+
+
+                <div class="info-box">
+
+                    <strong>Important:</strong> This interface is ready, but the AI phishing detection service must be connected and tested before results can be trusted. Do not treat an unverified URL or message as safe.
+
+                </div>
+
+
+
+                <section class="results">
+
+                    <div class="results-title">
+
+                        <div class="card-icon">▥</div>
+
+                        <div>
+
+                            <h3>Analysis Results</h3>
+
+                            <p>The scan status and API response will appear here.</p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="result-area" id="resultArea" aria-live="polite">
+
+                        <div class="empty">
+
+                            <div class="empty-icon">🛡</div>
+
+                            <h4>No Analysis Yet</h4>
+
+                            <p>Enter a URL or message to prepare an analysis request.</p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </section>
+
+        </div>
+
+
+
+        <footer class="footer">
+
+            <div><strong>CYBERGUARD</strong> &nbsp; | &nbsp; AI Cyber Defence</div>
+
+            <div>Detect &nbsp; • &nbsp; Analyse &nbsp; • &nbsp; Protect</div>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+
+<script src="js/phishing.js" defer></script>
+
+</body>
+
+</html>

@@ -1,0 +1,602 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#172331">
+
+    <title>Threat Scanner | CYBERGUARD</title>
+    <meta
+        name="description"
+        content="CYBERGUARD AI Cyber Defence threat scanning interface."
+    >
+
+    <link rel="stylesheet" href="css/scanner.css">
+</head>
+
+<body>
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <a class="brand" href="dashboard.html">
+            <div class="brand-logo">C</div>
+            <div>
+                <h2>CYBERGUARD</h2>
+                <p>AI Cyber Defence</p>
+            </div>
+        </a>
+
+        <nav aria-label="Main navigation">
+            <p class="nav-heading">MAIN</p>
+
+            <a class="nav-link" href="dashboard.html">
+                <span class="nav-icon" aria-hidden="true">⌂</span>
+                Dashboard
+            </a>
+
+            <a class="nav-link active" href="scanner.html" aria-current="page">
+                <span class="nav-icon" aria-hidden="true">⌕</span>
+                Threat Scanner
+            </a>
+
+            <p class="nav-heading">DETECTION</p>
+
+            <a class="nav-link" href="phishing.html">
+                <span class="nav-icon" aria-hidden="true">↗</span>
+                Phishing
+            </a>
+
+            <a class="nav-link" href="deepfake.html">
+                <span class="nav-icon" aria-hidden="true">◈</span>
+                Deepfake
+            </a>
+
+            <a class="nav-link" href="behaviour.html">
+                <span class="nav-icon" aria-hidden="true">◎</span>
+                Behaviour
+            </a>
+
+            <p class="nav-heading">SECURITY</p>
+
+            <a class="nav-link" href="incident.html">
+                <span class="nav-icon" aria-hidden="true">♧</span>
+                Incidents
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="safety-card">
+                <div class="shield" aria-hidden="true">🛡️</div>
+                <strong>Stay Safe</strong>
+                <p>AI-powered protection for a safer digital world.</p>
+            </div>
+
+            <button class="logout" id="logoutBtn" type="button">
+                ↪ &nbsp; Logout
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+            <div class="page-title">
+                <div class="page-title-icon" aria-hidden="true">🛡</div>
+                <div>
+                    <h1>Threat Scanner</h1>
+                    <p>Scan URLs and files for potential threats.</p>
+                </div>
+            </div>
+
+            <div class="user-info">
+                <div class="avatar" id="userAvatar">U</div>
+                <div>
+                    <div class="user-name" id="userName">User</div>
+                    <div class="user-email" id="userEmail"></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <section class="scanner-panel" aria-label="Threat scanning tools">
+
+                <!-- INTRODUCTION -->
+                <div class="intro">
+                    <div class="intro-icon" aria-hidden="true">🛡</div>
+
+                    <div>
+                        <h2>Advanced Threat Scanner</h2>
+                        <p>
+                            Check suspicious URLs and files using the
+                            CYBERGUARD scanning interface.
+                        </p>
+                    </div>
+
+                    <div class="feature-list">
+                        <div class="feature">
+                            <span class="feature-icon" aria-hidden="true">↗</span>
+                            <div>
+                                <strong>URL Scanning</strong>
+                                <span>Check suspicious links</span>
+                            </div>
+                        </div>
+
+                        <div class="feature">
+                            <span class="feature-icon" aria-hidden="true">▤</span>
+                            <div>
+                                <strong>File Analysis</strong>
+                                <span>Upload a file</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SCAN OPTIONS -->
+                <div class="scan-grid">
+
+                    <!-- URL SCANNER -->
+                    <section class="scan-card">
+                        <div class="card-heading">
+                            <div class="card-heading-icon" aria-hidden="true">🔗</div>
+                            <div>
+                                <h3>Scan URL</h3>
+                                <p>
+                                    Enter a URL to prepare it for
+                                    malicious-link and phishing analysis.
+                                </p>
+                            </div>
+                        </div>
+
+                        <form id="urlForm">
+                            <label class="url-field">
+                                <span aria-hidden="true">🔗</span>
+                                <input
+                                    type="url"
+                                    id="urlInput"
+                                    name="url"
+                                    placeholder="https://example.com"
+                                    aria-label="URL to scan"
+                                    autocomplete="url"
+                                    maxlength="2048"
+                                    required
+                                >
+                            </label>
+
+                            <button
+                                class="primary-btn"
+                                id="scanUrlBtn"
+                                type="submit"
+                            >
+                                ⌕ &nbsp; Scan URL
+                            </button>
+                        </form>
+                    </section>
+
+                    <!-- FILE SCANNER -->
+                    <section class="scan-card">
+                        <div class="card-heading">
+                            <div class="card-heading-icon" aria-hidden="true">▤</div>
+                            <div>
+                                <h3>Upload File</h3>
+                                <p>
+                                    Choose a supported file to prepare it
+                                    for security analysis.
+                                </p>
+                            </div>
+                        </div>
+
+                        <input
+                            class="file-input"
+                            type="file"
+                            id="fileInput"
+                            accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.zip"
+                            aria-label="Choose a file to scan"
+                        >
+
+                        <label
+                            class="upload-zone"
+                            id="uploadZone"
+                            for="fileInput"
+                            tabindex="0"
+                        >
+                            <span class="upload-icon" aria-hidden="true">☁</span>
+                            <strong id="uploadTitle">
+                                Click to choose or drop a file here
+                            </strong>
+                            <small id="uploadSubtitle">
+                                Maximum file size: 10 MB
+                            </small>
+                        </label>
+
+                        <div class="selected-file" id="selectedFile">
+                            <span
+                                class="selected-file-name"
+                                id="selectedFileName"
+                            ></span>
+
+                            <button
+                                type="button"
+                                class="remove-file"
+                                id="removeFileBtn"
+                            >
+                                Remove
+                            </button>
+                        </div>
+
+                        <div class="upload-actions">
+                            <button
+                                class="secondary-btn"
+                                type="button"
+                                id="chooseFileBtn"
+                            >
+                                ▤ &nbsp; Choose File
+                            </button>
+
+                            <span class="file-help">
+                                PDF, DOC, DOCX, XLS, XLSX, JPG, PNG, ZIP
+                            </span>
+                        </div>
+
+                        <button
+                            class="primary-btn"
+                            type="button"
+                            id="scanFileBtn"
+                            style="margin-top: 15px;"
+                            disabled
+                        >
+                            Scan File
+                        </button>
+                    </section>
+                </div>
+
+                <!-- RESULTS -->
+                <section class="results-card" aria-labelledby="resultsTitle">
+                    <div class="results-heading">
+                        <div class="results-heading-icon" aria-hidden="true">▥</div>
+                        <div>
+                            <h3 id="resultsTitle">Scan Results</h3>
+                            <p>Results and scan status will appear here.</p>
+                        </div>
+                    </div>
+
+                    <div
+                        class="result-area"
+                        id="resultArea"
+                        aria-live="polite"
+                        aria-atomic="true"
+                    >
+                        <div class="empty-result">
+                            <div class="empty-shield" aria-hidden="true">🛡</div>
+                            <h4>No Scan Performed Yet</h4>
+                            <p>
+                                Enter a URL or choose a file to get started.
+                                Actual detection requires a connected scanning API.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+            </section>
+        </div>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <div>
+                <strong>CYBERGUARD</strong>
+                &nbsp; | &nbsp; AI Cyber Defence
+            </div>
+            <div>Detect &nbsp; • &nbsp; Analyse &nbsp; • &nbsp; Protect</div>
+        </footer>
+
+    </main>
+</div>
+
+<script>
+"use strict";
+
+// =============================================
+// AUTHENTICATION
+// =============================================
+
+function logout() {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.replace("login.html");
+}
+
+const token = localStorage.getItem("token");
+const storedUser = localStorage.getItem("user");
+
+if (!token || !storedUser) {
+    window.location.replace("login.html");
+} else {
+    initializeScanner();
+}
+
+function initializeScanner() {
+    let user;
+
+    try {
+        user = JSON.parse(storedUser);
+
+        if (!user || typeof user !== "object" || Array.isArray(user)) {
+            throw new Error("Invalid user information.");
+        }
+    } catch (error) {
+        logout();
+        return;
+    }
+
+    document.getElementById("userName").textContent =
+        user.name || "User";
+
+    document.getElementById("userEmail").textContent =
+        user.email || "";
+
+    document.getElementById("userAvatar").textContent =
+        (user.name || "U").trim().charAt(0).toUpperCase() || "U";
+
+    document.getElementById("logoutBtn").addEventListener("click", logout);
+
+    setupScanner();
+}
+
+// =============================================
+// SCANNER INTERFACE
+// =============================================
+
+function setupScanner() {
+    const urlForm = document.getElementById("urlForm");
+    const urlInput = document.getElementById("urlInput");
+    const resultArea = document.getElementById("resultArea");
+    const scanUrlBtn = document.getElementById("scanUrlBtn");
+
+    const fileInput = document.getElementById("fileInput");
+    const uploadZone = document.getElementById("uploadZone");
+    const uploadTitle = document.getElementById("uploadTitle");
+    const uploadSubtitle = document.getElementById("uploadSubtitle");
+
+    const selectedFile = document.getElementById("selectedFile");
+    const selectedFileName = document.getElementById("selectedFileName");
+
+    const chooseFileBtn = document.getElementById("chooseFileBtn");
+    const removeFileBtn = document.getElementById("removeFileBtn");
+    const scanFileBtn = document.getElementById("scanFileBtn");
+
+    const MAX_FILE_SIZE = 10 * 1024 * 1024;
+
+    const ALLOWED_EXTENSIONS = new Set([
+        "pdf", "doc", "docx", "xls", "xlsx",
+        "jpg", "jpeg", "png", "zip"
+    ]);
+
+    let currentFile = null;
+
+    // Display messages safely as text.
+    function showMessage(message, type = "info") {
+        const box = document.createElement("div");
+        box.className = "notice";
+
+        if (type === "error") {
+            box.classList.add("error");
+        } else if (type === "success") {
+            box.classList.add("success");
+        }
+
+        box.textContent = message;
+        resultArea.replaceChildren(box);
+    }
+
+    // No actual threat verdict is generated by this placeholder.
+    function showApiNotConnectedMessage(itemType) {
+        showMessage(
+            itemType +
+            " is ready in the frontend, but the scanning API is not connected. " +
+            "No threat verdict has been generated. Connect a backend scanning " +
+            "endpoint to perform actual analysis."
+        );
+    }
+
+    // =========================================
+    // URL VALIDATION
+    // =========================================
+
+    urlForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        const value = urlInput.value.trim();
+
+        if (!value) {
+            showMessage("Please enter a URL.", "error");
+            return;
+        }
+
+        let parsedUrl;
+
+        try {
+            parsedUrl = new URL(value);
+        } catch {
+            showMessage(
+                "Please enter a valid URL, including https:// or http://.",
+                "error"
+            );
+            return;
+        }
+
+        if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+            showMessage(
+                "Only HTTP and HTTPS URLs are supported.",
+                "error"
+            );
+            return;
+        }
+
+        // Frontend placeholder until the real scanning API is connected.
+        showApiNotConnectedMessage("URL scan");
+    });
+
+    // =========================================
+    // FILE PICKER
+    // =========================================
+
+    chooseFileBtn.addEventListener("click", function () {
+        fileInput.click();
+    });
+
+    function formatFileSize(bytes) {
+        if (bytes < 1024) {
+            return bytes + " B";
+        }
+
+        if (bytes < 1024 * 1024) {
+            return (bytes / 1024).toFixed(1) + " KB";
+        }
+
+        return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+    }
+
+    function resetSelectedFile() {
+        currentFile = null;
+        fileInput.value = "";
+
+        selectedFile.classList.remove("visible");
+        selectedFileName.textContent = "";
+
+        uploadTitle.textContent =
+            "Click to choose or drop a file here";
+
+        uploadSubtitle.textContent =
+            "Maximum file size: 10 MB";
+
+        scanFileBtn.disabled = true;
+    }
+
+    function handleFile(file) {
+        if (!file) {
+            return;
+        }
+
+        const dotIndex = file.name.lastIndexOf(".");
+        const extension = dotIndex >= 0
+            ? file.name.slice(dotIndex + 1).toLowerCase()
+            : "";
+
+        if (!ALLOWED_EXTENSIONS.has(extension)) {
+            resetSelectedFile();
+
+            showMessage(
+                "Unsupported file type. Choose a supported document, image, or ZIP file.",
+                "error"
+            );
+            return;
+        }
+
+        if (file.size > MAX_FILE_SIZE) {
+            resetSelectedFile();
+
+            showMessage(
+                "This file exceeds the 10 MB size limit.",
+                "error"
+            );
+            return;
+        }
+
+        currentFile = file;
+
+        selectedFileName.textContent =
+            file.name + " (" + formatFileSize(file.size) + ")";
+
+        selectedFile.classList.add("visible");
+
+        uploadTitle.textContent = file.name;
+        uploadSubtitle.textContent = "File selected successfully";
+
+        scanFileBtn.disabled = false;
+
+        showMessage(
+            "File selected successfully. Click Scan File when ready. " +
+            "Actual scanning requires a connected scanning API."
+        );
+    }
+
+    fileInput.addEventListener("change", function () {
+        const file = fileInput.files && fileInput.files[0];
+        handleFile(file);
+    });
+
+    // =========================================
+    // DRAG AND DROP
+    // =========================================
+
+    ["dragenter", "dragover"].forEach(function (eventName) {
+        uploadZone.addEventListener(eventName, function (event) {
+            event.preventDefault();
+            uploadZone.classList.add("dragover");
+        });
+    });
+
+    ["dragleave", "drop"].forEach(function (eventName) {
+        uploadZone.addEventListener(eventName, function (event) {
+            event.preventDefault();
+            uploadZone.classList.remove("dragover");
+        });
+    });
+
+    uploadZone.addEventListener("drop", function (event) {
+        const files = event.dataTransfer && event.dataTransfer.files;
+        const file = files && files[0];
+
+        if (!file) {
+            return;
+        }
+
+        // Synchronize the file input with the dropped file when supported.
+        try {
+            const transfer = new DataTransfer();
+            transfer.items.add(file);
+            fileInput.files = transfer.files;
+        } catch {
+            // The selected file can still be tracked for the interface.
+        }
+
+        handleFile(file);
+    });
+
+    // Allow keyboard users to open the file picker from the drop zone.
+    uploadZone.addEventListener("keydown", function (event) {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            fileInput.click();
+        }
+    });
+
+    // =========================================
+    // REMOVE FILE
+    // =========================================
+
+    removeFileBtn.addEventListener("click", function () {
+        resetSelectedFile();
+        showMessage("File selection cleared.");
+    });
+
+    // =========================================
+    // FILE SCAN PLACEHOLDER
+    // =========================================
+
+    scanFileBtn.addEventListener("click", function () {
+        if (!currentFile) {
+            showMessage("Please choose a file first.", "error");
+            return;
+        }
+
+        showApiNotConnectedMessage("File scan");
+    });
+}
+</script>
+
+</body>
+</html>

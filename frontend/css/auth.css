@@ -1,0 +1,366 @@
+
+/* ============================================
+   CYBERGUARD AUTH PAGES
+   Dusty Pink • Warm Grey • Muted Mint • Navy
+   ============================================ */
+
+:root {
+    --auth-bg: #111923;
+    --auth-card: #252A35;
+    --auth-card-light: #30313D;
+
+    --dusty-pink: #C38EB4;
+    --blush-pink: #E1C8D7;
+    --pink-muted: #D5A6C4;
+
+    --mint: #A8CDBD;
+    --mint-soft: #C5DDD2;
+    --mint-deep: #729E8D;
+
+    --grey: #B9BAC5;
+    --grey-light: #D8D6DE;
+    --grey-dark: #858795;
+
+    --text: #F5F0F5;
+    --text-muted: #C1C0CC;
+    --border: rgba(193, 178, 199, 0.25);
+}
+
+/* ============================================
+   AUTH SECTION
+   ============================================ */
+
+.auth-section {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 20px;
+
+    background:
+        radial-gradient(
+            ellipse at 15% 15%,
+            rgba(195, 142, 180, 0.17),
+            transparent 40%
+        ),
+        radial-gradient(
+            ellipse at 85% 85%,
+            rgba(168, 205, 189, 0.12),
+            transparent 40%
+        ),
+        var(--auth-bg);
+}
+
+/* ============================================
+   AUTH CARD
+   ============================================ */
+
+.auth-card {
+    width: 100%;
+    max-width: 450px;
+    padding: 40px;
+
+    background: linear-gradient(
+        145deg,
+        var(--auth-card-light),
+        var(--auth-card)
+    );
+
+    color: var(--text);
+
+    border: 1px solid var(--border);
+    border-radius: 18px;
+
+    box-shadow:
+        0 24px 65px rgba(0, 0, 0, 0.30),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+    animation: authFadeIn 0.45s ease-out;
+}
+
+@keyframes authFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   HEADINGS
+   ============================================ */
+
+.auth-card h1 {
+    text-align: center;
+    font-size: 32px;
+    margin: 0 0 10px;
+
+    color: var(--blush-pink);
+    letter-spacing: -0.7px;
+}
+
+.auth-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin: 0 0 30px;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ============================================
+   FORM GROUPS
+   ============================================ */
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+
+    color: #E4DDE7;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.form-group input {
+    display: block;
+    width: 100%;
+    min-height: 46px;
+    padding: 12px 14px;
+
+    background: rgba(17, 25, 35, 0.80);
+    color: var(--text);
+
+    border: 1px solid var(--border);
+    border-radius: 9px;
+
+    font-size: 14px;
+    font-family: inherit;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.form-group input::placeholder {
+    color: #A7A6B5;
+}
+
+.form-group input:hover {
+    border-color: rgba(213, 166, 196, 0.48);
+}
+
+.form-group input:focus {
+    border-color: var(--dusty-pink);
+
+    background: rgba(17, 25, 35, 0.96);
+
+    box-shadow:
+        0 0 0 3px rgba(195, 142, 180, 0.15);
+}
+
+/* Browser autofill */
+
+.form-group input:-webkit-autofill,
+.form-group input:-webkit-autofill:hover,
+.form-group input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--text);
+    transition: background-color 9999s ease-in-out 0s;
+}
+
+/* ============================================
+   FORM OPTIONS
+   ============================================ */
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-bottom: 25px;
+
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.form-options a {
+    color: var(--dusty-pink);
+    text-decoration: none;
+    font-weight: 600;
+
+    transition: color 0.2s ease;
+}
+
+.form-options a:hover {
+    color: var(--mint);
+}
+
+/* Optional checkbox styling */
+
+.form-options input[type="checkbox"] {
+    accent-color: var(--dusty-pink);
+    cursor: pointer;
+}
+
+/* ============================================
+   AUTH BUTTON
+   ============================================ */
+
+.auth-btn {
+    display: block;
+    width: 100%;
+    min-height: 47px;
+    padding: 13px 18px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(
+        115deg,
+        var(--blush-pink),
+        var(--dusty-pink)
+    );
+
+    color: #292434;
+
+    font-size: 15px;
+    font-weight: 800;
+    font-family: inherit;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 16px rgba(195, 142, 180, 0.13);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.auth-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 24px rgba(195, 142, 180, 0.24);
+}
+
+.auth-btn:active {
+    transform: translateY(0);
+}
+
+.auth-btn:disabled {
+    opacity: 0.65;
+    cursor: wait;
+    transform: none;
+}
+
+/* ============================================
+   BOTTOM TEXT
+   ============================================ */
+
+.auth-bottom {
+    text-align: center;
+
+    margin-top: 25px;
+    margin-bottom: 0;
+
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.auth-bottom a {
+    color: var(--mint);
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.auth-bottom a:hover {
+    color: var(--blush-pink);
+}
+
+/* ============================================
+   SUCCESS AND ERROR MESSAGES
+   ============================================ */
+
+.success-message,
+.auth-success {
+    padding: 12px 14px;
+    border-radius: 9px;
+
+    color: var(--mint-soft);
+    background: rgba(168, 205, 189, 0.10);
+    border: 1px solid rgba(168, 205, 189, 0.28);
+}
+
+.error-message,
+.auth-error {
+    padding: 12px 14px;
+    border-radius: 9px;
+
+    color: #F0A0B7;
+    background: rgba(240, 160, 183, 0.09);
+    border: 1px solid rgba(240, 160, 183, 0.28);
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+
+.auth-card a:focus-visible,
+.auth-btn:focus-visible,
+.form-group input:focus-visible {
+    outline: 2px solid var(--mint);
+    outline-offset: 3px;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 520px) {
+    .auth-section {
+        min-height: calc(100vh - 70px);
+        padding: 28px 16px;
+    }
+
+    .auth-card {
+        padding: 28px 22px;
+        border-radius: 15px;
+    }
+
+    .auth-card h1 {
+        font-size: 27px;
+    }
+
+    .form-options {
+        align-items: flex-start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .auth-card {
+        animation: none;
+    }
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+    }
+}

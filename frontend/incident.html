@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Incident Management | CYBERGUARD</title>
+<link rel="stylesheet" href="css/incident.css">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <a href="dashboard.html" class="brand">
+            <div class="logo">C</div>
+            <div><h2>CYBERGUARD</h2><p>AI Cyber Defence</p></div>
+        </a>
+        <nav>
+            <p class="nav-heading">MAIN</p>
+            <a class="nav-link" href="dashboard.html"><span class="nav-icon">⌂</span>Dashboard</a>
+            <a class="nav-link" href="scanner.html"><span class="nav-icon">⌕</span>Threat Scanner</a>
+            <p class="nav-heading">DETECTION</p>
+            <a class="nav-link" href="phishing.html"><span class="nav-icon">↗</span>Phishing</a>
+            <a class="nav-link" href="deepfake.html"><span class="nav-icon">◈</span>Deepfake</a>
+            <a class="nav-link" href="behaviour.html"><span class="nav-icon">◎</span>Behaviour</a>
+            <p class="nav-heading">SECURITY</p>
+            <a class="nav-link active" href="incident.html"><span class="nav-icon">♧</span>Incidents</a>
+        </nav>
+        <div class="sidebar-bottom">
+            <div class="safety">
+                <div style="font-size:25px">🛡️</div>
+                <strong>Stay Safe</strong>
+                <p>AI-powered protection for a safer digital world.</p>
+            </div>
+            <button class="logout" id="logoutBtn" type="button">↪ &nbsp; Logout</button>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div class="page-title">
+                <div class="page-icon">♧</div>
+                <div>
+                    <h1>Incident Management</h1>
+                    <p>Report, review and track security incidents.</p>
+                </div>
+            </div>
+            <div class="user">
+                <div class="avatar" id="userAvatar">U</div>
+                <div>
+                    <div class="user-name" id="userName">User</div>
+                    <div class="user-email" id="userEmail"></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <section class="panel">
+                <div class="hero">
+                    <div class="hero-icon">♧</div>
+                    <div>
+                        <h2>Security Incident Centre</h2>
+                        <p>Create an incident record and manage its status. This prototype stores records in this browser only, not in the backend database.</p>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <article class="stat">
+                        <div class="stat-label">Total Incidents</div>
+                        <div class="stat-value" id="totalCount">0</div>
+                        <div class="stat-note">Records in this browser</div>
+                    </article>
+                    <article class="stat">
+                        <div class="stat-label">Open Incidents</div>
+                        <div class="stat-value" id="openCount">0</div>
+                        <div class="stat-note">Awaiting resolution</div>
+                    </article>
+                    <article class="stat">
+                        <div class="stat-label">Critical Incidents</div>
+                        <div class="stat-value" id="criticalCount">0</div>
+                        <div class="stat-note">Marked as critical</div>
+                    </article>
+                </div>
+
+                <div class="grid">
+                    <section class="card">
+                        <h3>Report an Incident</h3>
+                        <p class="card-desc">Enter a brief description of the security issue. Do not include passwords, API keys or other secrets.</p>
+                        <div class="notice"><strong>Prototype mode:</strong> Submissions are saved only in this browser and are not sent to a security team.</div>
+
+                        <form id="incidentForm">
+                            <div class="field">
+                                <label for="incidentTitle">Incident Title</label>
+                                <input id="incidentTitle" type="text" maxlength="100" placeholder="e.g. Suspicious login attempt" required>
+                            </div>
+                            <div class="field">
+                                <label for="incidentType">Incident Type</label>
+                                <select id="incidentType" required>
+                                    <option value="">Select incident type</option>
+                                    <option value="Phishing">Phishing</option>
+                                    <option value="Malware">Malware</option>
+                                    <option value="Suspicious Login">Suspicious Login</option>
+                                    <option value="Data Exposure">Data Exposure</option>
+                                    <option value="Deepfake">Deepfake</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="severity">Severity</label>
+                                <select id="severity" required>
+                                    <option value="Low">Low</option>
+                                    <option value="Medium" selected>Medium</option>
+                                    <option value="High">High</option>
+                                    <option value="Critical">Critical</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="incidentDescription">Description</label>
+                                <textarea id="incidentDescription" maxlength="2000" placeholder="Describe what happened and when..." required></textarea>
+                            </div>
+                            <button class="primary" id="createIncidentBtn" type="submit">+ Create Incident</button>
+                        </form>
+                    </section>
+
+                    <section class="card">
+                        <h3>Incident Handling</h3>
+                        <p class="card-desc">Suggested steps for handling a suspected security incident.</p>
+                        <div class="notice">
+                            <strong>1. Record</strong><br>
+                            Write down what happened and when it occurred.
+                        </div>
+                        <div class="notice">
+                            <strong>2. Assess</strong><br>
+                            Review the potential impact and choose an appropriate severity.
+                        </div>
+                        <div class="notice">
+                            <strong>3. Respond</strong><br>
+                            Follow your organisation's security response process.
+                        </div>
+                        <div class="notice" style="margin-bottom:0">
+                            <strong>4. Resolve</strong><br>
+                            Update the incident status when the issue has been addressed.
+                        </div>
+                    </section>
+                </div>
+
+                <section class="list-card">
+                    <div class="list-heading">
+                        <div>
+                            <h3>Incident Records</h3>
+                            <p>Incidents created in this browser's local storage.</p>
+                        </div>
+                        <span class="count" id="listCount">0 records</span>
+                    </div>
+                    <div id="incidentList" class="incident-list" aria-live="polite">
+                        <div class="empty">
+                            <div class="empty-icon">🛡</div>
+                            <h4>No Incidents Yet</h4>
+                            <p>Create an incident using the form to see it listed here.</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <div><strong>CYBERGUARD</strong> &nbsp; | &nbsp; AI Cyber Defence</div>
+            <div>Detect &nbsp; • &nbsp; Analyse &nbsp; • &nbsp; Protect</div>
+        </footer>
+    </main>
+</div>
+
+<script>
+"use strict";
+
+const token = localStorage.getItem("token");
+const storedUser = localStorage.getItem("user");
+
+if (!token || !storedUser) {
+    window.location.href = "login.html";
+} else {
+    try {
+        const user = JSON.parse(storedUser);
+        if (!user || typeof user !== "object") throw new Error("Invalid user data");
+        document.getElementById("userName").textContent = user.name || "User";
+        document.getElementById("userEmail").textContent = user.email || "";
+        document.getElementById("userAvatar").textContent =
+            (user.name || "U").trim().charAt(0).toUpperCase() || "U";
+    } catch (error) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "login.html";
+    }
+}
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+});
+
+const STORAGE_KEY = "cyberguard_incidents";
+const form = document.getElementById("incidentForm");
+const list = document.getElementById("incidentList");
+const createButton = document.getElementById("createIncidentBtn");
+
+function readIncidents() {
+    try {
+        const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+        return Array.isArray(data) ? data.filter(item => item && typeof item === "object") : [];
+    } catch {
+        return [];
+    }
+}
+
+function saveIncidents(items) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+}
+
+function createPill(text, extraClass = "") {
+    const pill = document.createElement("span");
+    pill.className = "pill " + extraClass;
+    pill.textContent = text;
+    return pill;
+}
+
+function renderIncidents() {
+    const incidents = readIncidents();
+
+    document.getElementById("totalCount").textContent = String(incidents.length);
+    document.getElementById("openCount").textContent =
+        String(incidents.filter(item => item.status !== "Resolved").length);
+    document.getElementById("criticalCount").textContent =
+        String(incidents.filter(item => item.severity === "Critical").length);
+    document.getElementById("listCount").textContent =
+        incidents.length + (incidents.length === 1 ? " record" : " records");
+
+    list.replaceChildren();
+
+    if (incidents.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "empty";
+        const icon = document.createElement("div");
+        icon.className = "empty-icon";
+        icon.textContent = "🛡";
+        const title = document.createElement("h4");
+        title.textContent = "No Incidents Yet";
+        const description = document.createElement("p");
+        description.textContent = "Create an incident using the form to see it listed here.";
+        empty.append(icon, title, description);
+        list.appendChild(empty);
+        return;
+    }
+
+    incidents.forEach(item => {
+        const card = document.createElement("article");
+        card.className = "incident-item";
+        const top = document.createElement("div");
+        top.className = "incident-top";
+
+        const heading = document.createElement("h4");
+        heading.textContent = item.title || "Untitled incident";
+        const date = document.createElement("p");
+        date.textContent = item.createdAt || "";
+        top.append(heading, date);
+
+        const description = document.createElement("p");
+        description.textContent = item.description || "";
+
+        const pills = document.createElement("div");
+        pills.className = "pills";
+        const severity = item.severity || "Medium";
+        const severityClass = severity === "Critical" ? "critical" :
+            severity === "High" ? "high" : severity === "Low" ? "low" : "";
+        pills.append(
+            createPill(item.type || "Other"),
+            createPill(severity, severityClass),
+            createPill(item.status || "Open")
+        );
+
+        const actions = document.createElement("div");
+        actions.className = "item-actions";
+
+        const statusButton = document.createElement("button");
+        statusButton.className = "small-btn";
+        statusButton.type = "button";
+        statusButton.textContent = item.status === "Resolved" ? "Reopen Incident" : "Mark Resolved";
+        statusButton.addEventListener("click", () => {
+            const updated = readIncidents().map(current =>
+                current.id === item.id
+                    ? { ...current, status: current.status === "Resolved" ? "Open" : "Resolved" }
+                    : current
+            );
+            try {
+                saveIncidents(updated);
+                renderIncidents();
+            } catch {
+                window.alert("Could not update this incident in browser storage.");
+            }
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.className = "small-btn delete";
+        deleteButton.type = "button";
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", () => {
+            if (!window.confirm("Delete this incident record?")) return;
+            try {
+                saveIncidents(readIncidents().filter(current => current.id !== item.id));
+                renderIncidents();
+            } catch {
+                window.alert("Could not delete this incident from browser storage.");
+            }
+        });
+
+        actions.append(statusButton, deleteButton);
+        card.append(top, description, pills, actions);
+        list.appendChild(card);
+    });
+}
+
+form.addEventListener("submit", event => {
+    event.preventDefault();
+    const title = document.getElementById("incidentTitle").value.trim();
+    const type = document.getElementById("incidentType").value;
+    const severity = document.getElementById("severity").value;
+    const description = document.getElementById("incidentDescription").value.trim();
+
+    if (!title || !type || !severity || !description) {
+        window.alert("Please fill in all incident fields.");
+        return;
+    }
+
+    const incident = {
+        id: Date.now().toString() + "-" + Math.random().toString(36).slice(2, 8),
+        title, type, severity, description, status: "Open",
+        createdAt: new Date().toLocaleString()
+    };
+
+    createButton.disabled = true;
+    createButton.textContent = "Saving...";
+    try {
+        const incidents = readIncidents();
+        incidents.unshift(incident);
+        saveIncidents(incidents);
+        form.reset();
+        document.getElementById("severity").value = "Medium";
+        renderIncidents();
+    } catch {
+        window.alert("Could not save this incident in browser storage.");
+    } finally {
+        createButton.disabled = false;
+        createButton.textContent = "+ Create Incident";
+    }
+});
+
+renderIncidents();
+</script>
+</body>
+</html>

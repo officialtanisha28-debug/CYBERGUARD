@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CYBERGUARD</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+<div class="app">
+    <aside class="sidebar">
+        <div class="sidebar-logo">
+            <div class="logo-mark">C</div>
+            <div>
+                <h2>CYBERGUARD</h2>
+                <span>AI Cyber Defence</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <p class="nav-title">MAIN</p>
+            <a href="dashboard.html" class="nav-item active"><span>🏠</span><span>Dashboard</span></a>
+            <a href="scanner.html" class="nav-item"><span>🔍</span><span>Threat Scanner</span></a>
+
+            <p class="nav-title">DETECTION</p>
+            <a href="phishing.html" class="nav-item"><span>🎣</span><span>Phishing</span></a>
+            <a href="deepfake.html" class="nav-item"><span>🎭</span><span>Deepfake</span></a>
+            <a href="behaviour.html" class="nav-item"><span>🛡️</span><span>Behaviour</span></a>
+
+            <p class="nav-title">SECURITY</p>
+            <a href="incident.html" class="nav-item"><span>🚨</span><span>Incidents</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <button id="logoutBtn" class="logout-btn"><span>🚪</span> Logout</button>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <h1>Security Overview</h1>
+                <p>Monitor and analyse your digital security.</p>
+            </div>
+            <div class="profile">
+                <div class="profile-avatar">👤</div>
+                <div class="profile-info">
+                    <strong id="userName">User</strong>
+                    <span id="userEmail">Loading...</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="welcome-card">
+            <div>
+                <span class="welcome-label">CYBERGUARD AI</span>
+                <h2>Welcome back, <span id="welcomeName">User</span> 👋</h2>
+                <p>Your AI-powered cyber defence centre is ready to detect and analyse potential threats.</p>
+            </div>
+            <a href="scanner.html" class="scan-btn">🔍 Start Threat Scan</a>
+        </section>
+
+        <section class="stats-grid">
+            <div class="stat-card"><div class="stat-icon">📊</div><div><span>Total Events</span><h3 id="totalEvents">0</h3></div></div>
+            <div class="stat-card"><div class="stat-icon">⚠️</div><div><span>Threats Detected</span><h3 id="threatsDetected">0</h3></div></div>
+            <div class="stat-card"><div class="stat-icon">🔴</div><div><span>High Risk</span><h3 id="highRisk">0</h3></div></div>
+            <div class="stat-card"><div class="stat-icon">🚨</div><div><span>Critical</span><h3 id="criticalThreats">0</h3></div></div>
+        </section>
+
+        <!-- MODEL 4 RISK FUSION -->
+        <section class="section" id="riskFusionSection">
+            <div class="section-header">
+                <div>
+                    <h2>Model 4 — AI Risk Fusion</h2>
+                    <p>Combine phishing, deepfake and behaviour risk probabilities.</p>
+                </div>
+                <span class="module-status">API Integration</span>
+            </div>
+
+            <div class="risk-fusion-card">
+                <form id="riskFusionForm">
+                    <div class="risk-input-grid">
+                        <div class="risk-field">
+                            <label for="phishingProbability">Phishing probability (%)</label>
+                            <input id="phishingProbability" name="phishing_probability" type="number" min="0" max="100" step="0.1" value="80" required>
+                        </div>
+                        <div class="risk-field">
+                            <label for="deepfakeProbability">Deepfake probability (%)</label>
+                            <input id="deepfakeProbability" name="deepfake_probability" type="number" min="0" max="100" step="0.1" value="60" required>
+                        </div>
+                        <div class="risk-field">
+                            <label for="anomalyProbability">Behaviour anomaly (%)</label>
+                            <input id="anomalyProbability" name="anomaly_probability" type="number" min="0" max="100" step="0.1" value="40" required>
+                        </div>
+                    </div>
+
+                    <div class="risk-input-grid risk-meta-grid">
+                        <div class="risk-field">
+                            <label for="threatType">Threat type</label>
+                            <input id="threatType" name="threat_type" type="text" value="Multi-Model Assessment" maxlength="120" required>
+                        </div>
+                        <div class="risk-field">
+                            <label for="riskSource">Source</label>
+                            <input id="riskSource" name="source" type="text" value="CYBERGUARD Dashboard" maxlength="120" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="risk-assess-btn" id="riskAssessBtn">Run Risk Assessment</button>
+                    <p id="riskFusionStatus" class="risk-fusion-status" role="status" aria-live="polite">Ready to assess risk.</p>
+                </form>
+
+                <div id="riskFusionResult" class="risk-result" hidden aria-live="polite">
+                    <div class="risk-result-heading">
+                        <div>
+                            <span class="risk-result-label">OVERALL RISK SCORE</span>
+                            <div class="risk-score-line"><strong id="riskScore">--</strong><span>/ 100</span></div>
+                        </div>
+                        <span id="riskLevel" class="risk-level">Awaiting result</span>
+                    </div>
+
+                    <div class="risk-meter" aria-label="Overall risk score">
+                        <div id="riskMeterFill" class="risk-meter-fill"></div>
+                    </div>
+
+                    <h3>Threat indicators</h3>
+                    <ul id="riskIndicators" class="risk-indicators"></ul>
+
+                    <div class="risk-recommendation">
+                        <strong>Recommended action</strong>
+                        <p id="riskRecommendedAction"></p>
+                    </div>
+                    <p id="riskEventId" class="risk-event-id"></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <h2>AI Security Modules</h2>
+                    <p>Choose a module to analyse a potential threat.</p>
+                </div>
+            </div>
+
+            <div class="modules-grid">
+                <a href="phishing.html" class="module-card">
+                    <div class="module-top"><div class="module-icon phishing-icon">🎣</div><span class="module-status">Active</span></div>
+                    <h3>Phishing Detection</h3>
+                    <p>Analyse suspicious emails, messages, URLs and websites.</p>
+                    <span class="module-link">Analyse Threat →</span>
+                </a>
+                <a href="deepfake.html" class="module-card">
+                    <div class="module-top"><div class="module-icon deepfake-icon">🎭</div><span class="module-status">Active</span></div>
+                    <h3>Deepfake Detection</h3>
+                    <p>Analyse images, videos and other AI-generated media.</p>
+                    <span class="module-link">Analyse Media →</span>
+                </a>
+                <a href="behaviour.html" class="module-card">
+                    <div class="module-top"><div class="module-icon behaviour-icon">🛡️</div><span class="module-status">Active</span></div>
+                    <h3>Behaviour Analysis</h3>
+                    <p>Detect abnormal login activity, account takeover and suspicious behaviour.</p>
+                    <span class="module-link">Analyse Behaviour →</span>
+                </a>
+                <a href="scanner.html" class="module-card">
+                    <div class="module-top"><div class="module-icon scanner-icon">🔍</div><span class="module-status">AI Ready</span></div>
+                    <h3>Threat Scanner</h3>
+                    <p>Scan different cyber threats using the CYBERGUARD analysis engine.</p>
+                    <span class="module-link">Start Scanning →</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div>
+                    <h2>Recent Security Activity</h2>
+                    <p>Your latest detected events will appear here.</p>
+                </div>
+                <a href="incident.html" class="view-all">View All</a>
+            </div>
+            <div class="activity-card">
+                <div class="empty-icon">🛡️</div>
+                <h3>No security events yet</h3>
+                <p>Start a threat scan to analyse your first security event.</p>
+                <a href="scanner.html" class="activity-btn">Start First Scan</a>
+            </div>
+        </section>
+
+        <footer class="app-footer">
+            <p>© 2026 CYBERGUARD</p>
+            <span>AI Cyber Defence &amp; Digital Trust Platform</span>
+        </footer>
+    </main>
+</div>
+
+<script src="js/dashboard.js"></script>
+</body>
+</html>

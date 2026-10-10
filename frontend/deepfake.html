@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b1020">
+<title>Deepfake Detection | CYBERGUARD</title>
+<link rel="stylesheet" href="css/deepfake.css">
+</head>
+<body>
+<div class="layout">
+    <aside class="sidebar">
+        <a href="dashboard.html" class="brand">
+            <div class="logo">C</div>
+            <div><h2>CYBERGUARD</h2><p>AI Cyber Defence</p></div>
+        </a>
+        <nav aria-label="Main navigation">
+            <p class="nav-heading">MAIN</p>
+            <a class="nav-link" href="dashboard.html"><span class="nav-icon">⌂</span>Dashboard</a>
+            <a class="nav-link" href="scanner.html"><span class="nav-icon">⌕</span>Threat Scanner</a>
+            <p class="nav-heading">DETECTION</p>
+            <a class="nav-link" href="phishing.html"><span class="nav-icon">↗</span>Phishing</a>
+            <a class="nav-link active" href="deepfake.html" aria-current="page"><span class="nav-icon">◈</span>Deepfake</a>
+            <a class="nav-link" href="behaviour.html"><span class="nav-icon">◎</span>Behaviour</a>
+            <p class="nav-heading">SECURITY</p>
+            <a class="nav-link" href="incident.html"><span class="nav-icon">♧</span>Incidents</a>
+        </nav>
+        <div class="sidebar-bottom">
+            <div class="safety">
+                <div style="font-size:25px" aria-hidden="true">🛡️</div>
+                <strong>Stay Safe</strong>
+                <p>AI-powered protection for a safer digital world.</p>
+            </div>
+            <button class="logout" id="logoutBtn" type="button">↪ &nbsp; Logout</button>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div class="page-title">
+                <div class="page-icon" aria-hidden="true">◈</div>
+                <div>
+                    <h1>Deepfake Detection</h1>
+                    <p>Prepare images and videos for authenticity analysis.</p>
+                </div>
+            </div>
+            <div class="user">
+                <div class="avatar" id="userAvatar">U</div>
+                <div>
+                    <div class="user-name" id="userName">User</div>
+                    <div class="user-email" id="userEmail"></div>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <section class="panel">
+                <div class="hero">
+                    <div class="hero-icon" aria-hidden="true">🛡</div>
+                    <div>
+                        <h2>AI Deepfake Analysis</h2>
+                        <p>Select an image or video to prepare it for analysis. This page currently validates the file locally; it does not claim a real/fake result unless a verified detection service is connected.</p>
+                    </div>
+                </div>
+
+                <div class="grid">
+                    <section class="card" aria-labelledby="imageCardTitle">
+                        <div class="card-title">
+                            <div class="card-icon" aria-hidden="true">▧</div>
+                            <div>
+                                <h3 id="imageCardTitle">Upload Image</h3>
+                                <p>Select a supported image file. Maximum size: 10 MB.</p>
+                            </div>
+                        </div>
+                        <input class="file-input" type="file" id="imageInput" accept="image/jpeg,image/png,image/webp">
+                        <label class="upload-zone" id="imageZone" for="imageInput">
+                            <span class="upload-icon" aria-hidden="true">▧</span>
+                            <strong id="imageTitle">Click to choose an image</strong>
+                            <small>Supported: JPG, PNG, WEBP · Maximum 10 MB</small>
+                        </label>
+                        <div class="file-details" id="imageDetails" aria-live="polite"></div>
+                        <button class="primary" id="imageScanBtn" type="button" disabled>Prepare Image Analysis</button>
+                    </section>
+
+                    <section class="card" aria-labelledby="videoCardTitle">
+                        <div class="card-title">
+                            <div class="card-icon" aria-hidden="true">▷</div>
+                            <div>
+                                <h3 id="videoCardTitle">Upload Video</h3>
+                                <p>Select a supported video file. Maximum size: 50 MB.</p>
+                            </div>
+                        </div>
+                        <input class="file-input" type="file" id="videoInput" accept="video/mp4,video/webm,video/quicktime">
+                        <label class="upload-zone" id="videoZone" for="videoInput">
+                            <span class="upload-icon" aria-hidden="true">▷</span>
+                            <strong id="videoTitle">Click to choose a video</strong>
+                            <small>Supported: MP4, WEBM, MOV · Maximum 50 MB</small>
+                        </label>
+                        <div class="file-details" id="videoDetails" aria-live="polite"></div>
+                        <button class="primary" id="videoScanBtn" type="button" disabled>Prepare Video Analysis</button>
+                    </section>
+                </div>
+
+                <div class="notice">
+                    <strong>Privacy reminder:</strong> Files are checked in this browser only. This demo does not upload your selected media to the server or run a deepfake model. Do not treat file selection as an authenticity verdict.
+                </div>
+
+                <section class="results" aria-labelledby="resultsHeading">
+                    <div class="results-title">
+                        <div class="card-icon" aria-hidden="true">▥</div>
+                        <div>
+                            <h3 id="resultsHeading">Detection Results</h3>
+                            <p>File validation and integration status will appear here.</p>
+                        </div>
+                    </div>
+                    <div class="result-area" id="resultArea" aria-live="polite" aria-atomic="true">
+                        <div class="empty">
+                            <div class="empty-icon" aria-hidden="true">🛡</div>
+                            <h4>No Analysis Yet</h4>
+                            <p>Select an image or video. No authenticity verdict has been generated.</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </div>
+
+        <footer class="footer">
+            <div><strong>CYBERGUARD</strong> &nbsp; | &nbsp; AI Cyber Defence</div>
+            <div>Detect &nbsp; • &nbsp; Analyse &nbsp; • &nbsp; Protect</div>
+        </footer>
+    </main>
+</div>
+
+<script>
+"use strict";
+
+const token = localStorage.getItem("token");
+const storedUser = localStorage.getItem("user");
+
+if (!token || !storedUser) {
+    window.location.href = "login.html";
+} else {
+    try {
+        const user = JSON.parse(storedUser);
+        if (!user || typeof user !== "object" || Array.isArray(user)) {
+            throw new Error("Invalid user data");
+        }
+        document.getElementById("userName").textContent = user.name || "User";
+        document.getElementById("userEmail").textContent = user.email || "";
+        document.getElementById("userAvatar").textContent =
+            (String(user.name || "U").trim().charAt(0).toUpperCase() || "U");
+    } catch {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "login.html";
+    }
+}
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+});
+
+const resultArea = document.getElementById("resultArea");
+const MAX_IMAGE_SIZE = 10 * 1024 * 1024;
+const MAX_VIDEO_SIZE = 50 * 1024 * 1024;
+
+function showMessage(message, isError = false) {
+    const box = document.createElement("div");
+    box.className = isError ? "message error" : "message";
+    box.textContent = message;
+    resultArea.replaceChildren(box);
+}
+
+function formatBytes(bytes) {
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + " KB";
+    return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+}
+
+function setupUpload(kind, maxSize) {
+    const input = document.getElementById(kind + "Input");
+    const zone = document.getElementById(kind + "Zone");
+    const title = document.getElementById(kind + "Title");
+    const details = document.getElementById(kind + "Details");
+    const scanButton = document.getElementById(kind + "ScanBtn");
+    let selectedFile = null;
+
+    function resetSelection(message) {
+        selectedFile = null;
+        input.value = "";
+        title.textContent = kind === "image" ? "Click to choose an image" : "Click to choose a video";
+        details.replaceChildren();
+        details.classList.remove("visible");
+        scanButton.disabled = true;
+        if (message) showMessage(message);
+    }
+
+    function processFile(file) {
+        if (!file) return;
+
+        const validImage = kind === "image" &&
+            ["image/jpeg", "image/png", "image/webp"].includes(file.type);
+        const validVideo = kind === "video" &&
+            ["video/mp4", "video/webm", "video/quicktime"].includes(file.type);
+
+        if (file.size <= 0) {
+            resetSelection("The selected file is empty. Please choose another file.");
+            return;
+        }
+        if (file.size > maxSize) {
+            resetSelection("The selected " + kind + " exceeds the " + (maxSize / (1024 * 1024)) + " MB size limit.");
+            showMessage("The selected " + kind + " exceeds the size limit.", true);
+            return;
+        }
+        if (!validImage && !validVideo) {
+            resetSelection("Please select a supported " + kind + " file.");
+            showMessage("Please select a supported " + kind + " file.", true);
+            return;
+        }
+
+        selectedFile = file;
+        title.textContent = file.name;
+        details.replaceChildren();
+        const info = document.createElement("div");
+        info.textContent = file.name + " · " + formatBytes(file.size);
+        details.appendChild(info);
+
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.textContent = "Remove file";
+        removeButton.addEventListener("click", () => resetSelection("File selection cleared."));
+        details.appendChild(removeButton);
+        details.classList.add("visible");
+        scanButton.disabled = false;
+
+        showMessage("File selected and validated locally. No media has been uploaded and no deepfake detection has been performed.");
+    }
+
+    input.addEventListener("change", () => processFile(input.files && input.files[0]));
+
+    ["dragenter", "dragover"].forEach(eventName => {
+        zone.addEventListener(eventName, event => {
+            event.preventDefault();
+            zone.classList.add("dragover");
+        });
+    });
+
+    ["dragleave", "drop"].forEach(eventName => {
+        zone.addEventListener(eventName, event => {
+            event.preventDefault();
+            zone.classList.remove("dragover");
+        });
+    });
+
+    zone.addEventListener("drop", event => {
+        const file = event.dataTransfer && event.dataTransfer.files[0];
+        if (!file) return;
+        try {
+            const transfer = new DataTransfer();
+            transfer.items.add(file);
+            input.files = transfer.files;
+        } catch {
+            // Processing still works even if the browser disallows assigning input.files.
+        }
+        processFile(file);
+    });
+
+    scanButton.addEventListener("click", () => {
+        if (!selectedFile) {
+            showMessage("Please select a file first.", true);
+            return;
+        }
+        showMessage(
+            "The " + kind + " passed local file checks (" + formatBytes(selectedFile.size) + "). " +
+            "Deepfake detection is not connected to this page yet, so no real/fake verdict has been generated."
+        );
+    });
+}
+
+setupUpload("image", MAX_IMAGE_SIZE);
+setupUpload("video", MAX_VIDEO_SIZE);
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+node_modules/
+**/node_modules/
+.venv/
+**/.venv/
+venv/
+**/venv/
+__pycache__/
+**/__pycache__/
+*.pyc
+**/*.pyc
+
+dist/
+
+# Large AI model folders
+/CG ai models/Model 3 CG/
+/CG ai models/CYBERGUARD_Model1B/
+/CG ai models/CYBERGUARD_Model1_Artifacts/

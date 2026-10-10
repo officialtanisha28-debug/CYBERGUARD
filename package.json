@@ -1,0 +1,33 @@
+{
+  "name": "cyberguard",
+  "version": "1.0.0",
+  "description": "CYBERGUARD AI Cyber Defence Platform",
+  "main": "electron/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "electron": "^44.5.1",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.cyberguard.app",
+    "productName": "CYBERGUARD",
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "CYBERGUARD"
+    }
+  }
+}
